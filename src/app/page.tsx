@@ -95,7 +95,16 @@ export default async function Home() {
             </div>
 
             <div className="relative z-10 rounded-[2rem] border border-white/10 bg-white/5 p-4 shadow-[0_35px_90px_rgba(0,0,0,0.28)]">
-              <div className="aspect-[4/5] rounded-[1.7rem] border border-white/10 bg-[linear-gradient(155deg,rgba(200,169,107,0.18),rgba(11,30,49,0.28)),url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center" />
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.7rem] border border-white/10 bg-[linear-gradient(155deg,rgba(200,169,107,0.18),rgba(11,30,49,0.28)),url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80')] bg-cover bg-center">
+                <Image
+                  src="/brand/marcadeaguacardinal.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={1000}
+                  height={700}
+                  className="pointer-events-none absolute bottom-5 right-5 w-52 opacity-[0.16] mix-blend-screen"
+                />
+              </div>
               <div className="-mt-16 ml-auto max-w-sm rounded-[1.8rem] border border-white/10 bg-night/90 p-6 shadow-[0_20px_50px_rgba(0,0,0,0.35)]">
                 <p className="text-xs uppercase tracking-[0.28em] text-champagne">Acompañamiento real</p>
                 <h2 className="mt-3 font-serif text-3xl">Operaciones claras, presencia sólida y foco en resultados.</h2>
@@ -157,7 +166,15 @@ export default async function Home() {
         <section className="mx-auto max-w-7xl px-5 py-20 md:px-8" id="nosotros">
           <div className="grid gap-10 xl:grid-cols-[0.92fr_1.08fr] xl:items-center">
             <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(200,169,107,0.08),rgba(255,255,255,0.02))] p-5">
-              <div className="aspect-[4/5] rounded-[1.6rem] bg-[linear-gradient(180deg,rgba(200,169,107,0.06),rgba(255,255,255,0.02)),url('/brand/cardinal-emblem.svg')] bg-cover bg-center" />
+              <div className="flex aspect-[4/5] items-center justify-center rounded-[1.6rem] border border-white/10 bg-white p-8">
+                <Image
+                  src="/brand/logocardinal.png"
+                  alt="Logo oficial de Cardinal Negocios Inmobiliarios"
+                  width={820}
+                  height={566}
+                  className="h-auto w-full object-contain"
+                />
+              </div>
             </div>
 
             <div className="space-y-8">

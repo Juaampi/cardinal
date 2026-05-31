@@ -8,7 +8,7 @@ export function SiteHeader() {
     <>
       <header className="sticky top-0 z-50 border-b border-white/10 bg-night/75 backdrop-blur-xl">
         <div className="mx-auto flex w-full max-w-7xl items-center justify-between gap-6 px-5 py-4 md:px-8">
-          <Logo />
+          <Logo imageClassName="w-[130px] min-w-[130px] md:w-[156px] md:min-w-[156px]" />
 
           <nav className="hidden items-center gap-6 text-sm text-ivory/70 lg:flex">
             {navigation.map((item) => (

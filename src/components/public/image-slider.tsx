@@ -23,6 +23,14 @@ export function ImageSlider({ images, title }: ImageSliderProps) {
           className="object-cover"
           sizes="100vw"
         />
+        <Image
+          src="/brand/marcadeaguacardinal.png"
+          alt=""
+          aria-hidden="true"
+          width={1000}
+          height={700}
+          className="pointer-events-none absolute bottom-4 right-4 w-44 opacity-[0.14] mix-blend-screen"
+        />
         {hasMultiple && (
           <>
             <button
@@ -55,6 +63,14 @@ export function ImageSlider({ images, title }: ImageSliderProps) {
               }`}
             >
               <Image src={image.url} alt={image.alt || title} fill className="object-cover" sizes="20vw" />
+              <Image
+                src="/brand/marcadeaguacardinal.png"
+                alt=""
+                aria-hidden="true"
+                width={1000}
+                height={700}
+                className="pointer-events-none absolute bottom-1 right-1 w-16 opacity-[0.14] mix-blend-screen"
+              />
             </button>
           ))}
         </div>

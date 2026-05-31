@@ -40,6 +40,14 @@ export function PropertyCard({ property }: PropertyCardProps) {
           />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent" />
+        <Image
+          src="/brand/marcadeaguacardinal.png"
+          alt=""
+          aria-hidden="true"
+          width={1000}
+          height={700}
+          className="pointer-events-none absolute bottom-3 right-3 w-36 opacity-[0.16] mix-blend-screen"
+        />
         <div className="absolute left-5 top-5 inline-flex rounded-full border border-white/15 bg-black/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-ivory">
           {formatOperation(property.operationType)}
         </div>
