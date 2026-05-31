@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-body);
+  --font-serif: var(--font-heading);
+  --color-night: #081728;
+  --color-night-soft: #0f2338;
+  --color-ivory: #f8f4ea;
+  --color-champagne: #c8a96b;
+  --color-rose-gold: #8f7444;
+  --color-blush: #e3d5ba;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top center, rgba(200, 169, 107, 0.2), transparent 32%),
+    radial-gradient(circle at right center, rgba(143, 116, 68, 0.18), transparent 28%),
+    linear-gradient(180deg, #07121d 0%, #0d2032 45%, #06111b 100%);
+  color: var(--color-ivory);
+  font-family: var(--font-body), sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.form-input {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.2);
+  padding: 0.9rem 1rem;
+  color: var(--color-ivory);
+  outline: none;
+}
+
+.form-input::placeholder {
+  color: rgba(251, 243, 234, 0.4);
+}
+
+.form-input:focus {
+  border-color: rgba(200, 169, 107, 0.65);
+  box-shadow: 0 0 0 3px rgba(200, 169, 107, 0.15);
+}
+
+.glass-panel {
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+}

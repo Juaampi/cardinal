@@ -1,0 +1,15 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#243A4C"/>
+  <circle cx="914" cy="190" r="74" fill="#F5B800"/>
+  <path d="M914 54L934 144H894L914 54Z" fill="#F5B800"/>
+  <path d="M738 190L870 173V207L738 190Z" fill="#F5B800"/>
+  <path d="M1090 190L958 173V207L1090 190Z" fill="#F5B800"/>
+  <path d="M850 106L899 145L874 168L850 106Z" fill="#F5B800"/>
+  <path d="M978 106L954 168L929 145L978 106Z" fill="#F5B800"/>
+  <path d="M874 150C888 126 913 111 942 111C972 111 998 127 1010 154L983 163C974 146 960 137 943 137C927 137 912 145 904 160L874 150Z" fill="#F5B800"/>
+  <path d="M980 224C970 242 954 253 937 258L929 233C939 230 947 224 953 214L980 224Z" fill="#243A4C"/>
+  <path d="M1010 154L1040 159L1031 188L1001 183L1010 154Z" fill="#F5B800"/>
+  <text x="110" y="318" fill="#F4F1EC" font-family="Georgia, 'Times New Roman', serif" font-size="92">CARDINAL</text>
+  <text x="112" y="382" fill="#BCA245" font-family="Arial, Helvetica, sans-serif" font-size="28" letter-spacing="9">NEGOCIOS INMOBILIARIOS</text>
+  <text x="110" y="470" fill="#F4F1EC" font-family="Georgia, 'Times New Roman', serif" font-size="34">Inmobiliaria premium con visión estratégica y atención personalizada.</text>
+</svg>

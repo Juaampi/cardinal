@@ -1,0 +1,16 @@
+<svg width="800" height="1000" viewBox="0 0 800 1000" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="800" height="1000" rx="52" fill="#243A4C"/>
+  <g transform="translate(0 16)">
+    <circle cx="400" cy="280" r="78" fill="#F5B800"/>
+    <path d="M400 72L421 230H379L400 72Z" fill="#F5B800"/>
+    <path d="M182 280L350 258V302L182 280Z" fill="#F5B800"/>
+    <path d="M618 280L450 258V302L618 280Z" fill="#F5B800"/>
+    <path d="M318 180L379 230L349 260L318 180Z" fill="#F5B800"/>
+    <path d="M482 180L451 260L421 230L482 180Z" fill="#F5B800"/>
+    <path d="M349 236C365 207 395 189 429 189C465 189 496 209 511 241L476 252C465 232 448 220 428 220C408 220 391 231 381 249L349 236Z" fill="#F5B800"/>
+    <path d="M472 319C460 340 442 353 421 359L411 329C423 326 433 318 440 307L472 319Z" fill="#243A4C"/>
+    <path d="M511 241L550 247L539 283L500 276L511 241Z" fill="#F5B800"/>
+  </g>
+  <text x="400" y="640" fill="#F4F1EC" font-family="Georgia, 'Times New Roman', serif" font-size="116" text-anchor="middle">CARDINAL</text>
+  <text x="400" y="714" fill="#BCA245" font-family="Arial, Helvetica, sans-serif" font-size="34" letter-spacing="10" text-anchor="middle">NEGOCIOS INMOBILIARIOS</text>
+</svg>

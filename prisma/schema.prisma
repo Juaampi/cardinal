@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model AdminUser {
+  id               String     @id @default(cuid())
+  fullName         String
+  email            String     @unique
+  passwordHash     String
+  role             UserRole   @default(ADMIN)
+  passwordResetTok String?
+  lastLoginAt      DateTime?
+  createdAt        DateTime   @default(now())
+  updatedAt        DateTime   @updatedAt
+  properties       Property[] @relation("PropertyAuthor")
+}
+
+model Property {
+  id            String          @id @default(cuid())
+  title         String
+  description   String
+  price         Decimal         @db.Decimal(12, 2)
+  operationType OperationType
+  propertyType  PropertyType
+  address       String
+  city          String
+  province      String
+  latitude      Decimal?        @db.Decimal(10, 7)
+  longitude     Decimal?        @db.Decimal(10, 7)
+  rooms         Int?
+  bedrooms      Int?
+  bathrooms     Int?
+  garage        Int?
+  coveredArea   Int?
+  totalArea     Int?
+  status        PropertyStatus  @default(AVAILABLE)
+  featured      Boolean         @default(false)
+  videoUrl      String?
+  seoSlug       String          @unique
+  publishedAt   DateTime        @default(now())
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+  authorId      String?
+  inquiries     Inquiry[]
+  author        AdminUser?      @relation("PropertyAuthor", fields: [authorId], references: [id])
+  images        PropertyImage[]
+}
+
+model PropertyImage {
+  id         String   @id @default(cuid())
+  propertyId String
+  url        String
+  alt        String?
+  isFeatured Boolean  @default(false)
+  sortOrder  Int      @default(0)
+  createdAt  DateTime @default(now())
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@index([propertyId, sortOrder])
+}
+
+model Inquiry {
+  id         String        @id @default(cuid())
+  propertyId String?
+  name       String
+  phone      String
+  email      String
+  message    String
+  status     InquiryStatus @default(NEW)
+  createdAt  DateTime      @default(now())
+  property   Property?     @relation(fields: [propertyId], references: [id])
+}
+
+model Banner {
+  id        String   @id @default(cuid())
+  title     String
+  subtitle  String?
+  imageUrl  String?
+  ctaLabel  String?
+  ctaHref   String?
+  isActive  Boolean  @default(true)
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum OperationType {
+  SALE
+  RENT
+}
+
+enum PropertyType {
+  HOUSE
+  APARTMENT
+  LAND
+  COMMERCIAL
+  OFFICE
+  COUNTRY_HOUSE
+  WAREHOUSE
+}
+
+enum PropertyStatus {
+  AVAILABLE
+  RESERVED
+  SOLD
+  RENTED
+  DRAFT
+}
+
+enum InquiryStatus {
+  NEW
+  CONTACTED
+  CLOSED
+}
+
+enum UserRole {
+  SUPERADMIN
+  ADMIN
+  EDITOR
+}
