@@ -4,6 +4,51 @@ import { getCloudinary, isCloudinaryConfigured } from "@/lib/cloudinary";
 
 export const runtime = "nodejs";
 
+const MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024;
+const CLOUDINARY_UPLOAD_TIMEOUT_MS = 60_000;
+
+async function uploadSingleFile(file: File) {
+  const cloudinary = getCloudinary();
+  const arrayBuffer = await file.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+
+  return new Promise<{ url: string; publicId: string }>((resolve, reject) => {
+    let settled = false;
+
+    const upload = cloudinary.uploader.upload_stream(
+      {
+        folder: "cardinal/properties",
+        resource_type: "image",
+      },
+      (error, result) => {
+        if (settled) return;
+        settled = true;
+
+        if (error || !result) {
+          reject(error || new Error("No se pudo subir la imagen."));
+          return;
+        }
+
+        resolve({
+          url: result.secure_url,
+          publicId: result.public_id,
+        });
+      }
+    );
+
+    const timeout = setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      upload.destroy(new Error("La subida a Cloudinary tardó demasiado."));
+      reject(new Error("La subida a Cloudinary tardó demasiado. Probá con una imagen más liviana."));
+    }, CLOUDINARY_UPLOAD_TIMEOUT_MS);
+
+    upload.on("close", () => clearTimeout(timeout));
+    upload.on("error", () => clearTimeout(timeout));
+    upload.end(buffer);
+  });
+}
+
 export async function POST(request: Request) {
   const session = await getSession();
 
@@ -25,36 +70,23 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: "No se recibieron imágenes." }, { status: 400 });
   }
 
-  try {
-    const cloudinary = getCloudinary();
-    const uploads = await Promise.all(
-      files.map(async (file) => {
-        const arrayBuffer = await file.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
+  const oversizedFile = files.find((file) => file.size > MAX_FILE_SIZE_BYTES);
 
-        return new Promise<{ url: string; publicId: string }>((resolve, reject) => {
-          const upload = cloudinary.uploader.upload_stream(
-            {
-              folder: "leonor-granados/properties",
-              resource_type: "image",
-            },
-            (error, result) => {
-              if (error || !result) {
-                reject(error || new Error("No se pudo subir la imagen."));
-                return;
-              }
-
-              resolve({
-                url: result.secure_url,
-                publicId: result.public_id,
-              });
-            }
-          );
-
-          upload.end(buffer);
-        });
-      })
+  if (oversizedFile) {
+    return NextResponse.json(
+      {
+        error: `La imagen "${oversizedFile.name}" supera el límite de 10 MB. Reducí el peso e intentá nuevamente.`,
+      },
+      { status: 400 }
     );
+  }
+
+  try {
+    const uploads = [];
+
+    for (const file of files) {
+      uploads.push(await uploadSingleFile(file));
+    }
 
     return NextResponse.json({ images: uploads });
   } catch (error) {

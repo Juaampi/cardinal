@@ -48,6 +48,7 @@ type PropertyActionState = {
 };
 
 const initialState: PropertyActionState = {};
+const UPLOAD_REQUEST_TIMEOUT_MS = 70_000;
 
 export function PropertyForm({ property }: PropertyFormProps) {
   const [state, action, pending] = useActionState(savePropertyAction, initialState);
@@ -68,10 +69,15 @@ export function PropertyForm({ property }: PropertyFormProps) {
       const payload = new FormData();
       Array.from(fileList).forEach((file) => payload.append("files", file));
 
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), UPLOAD_REQUEST_TIMEOUT_MS);
+
       const response = await fetch("/api/admin/upload-image", {
         method: "POST",
         body: payload,
+        signal: controller.signal,
       });
+      clearTimeout(timeout);
 
       const data = (await response.json()) as {
         error?: string;
@@ -90,7 +96,11 @@ export function PropertyForm({ property }: PropertyFormProps) {
         fileInputRef.current.value = "";
       }
     } catch (error) {
-      setUploadError(error instanceof Error ? error.message : "No pudimos subir las imágenes.");
+      if (error instanceof DOMException && error.name === "AbortError") {
+        setUploadError("La subida tardó demasiado. Probá con menos imágenes o archivos más livianos.");
+      } else {
+        setUploadError(error instanceof Error ? error.message : "No pudimos subir las imágenes.");
+      }
     } finally {
       setIsUploading(false);
     }
